@@ -61,6 +61,29 @@ describe("Walletmanager", () => {
       expect(res).to.not.be.empty;
     });
   });
+    describe("Web3AndThreeQuarters", () => {
+        let web3Instance: Web3AndThreeQuarters;
+
+        beforeAll(() => {
+            web3Instance = new Web3AndThreeQuarters();
+        });
+
+        it("should create an instance of Web3AndThreeQuarters", () => {
+            expect(web3Instance).to.be.an.instanceOf(Web3AndThreeQuarters);
+        });
+
+        it("should have a valid provider", async () => {
+            const provider = web3Instance.getProvider();
+            expect(provider).to.exist;
+            expect(provider).to.be.an.instanceOf(ethers.providers.JsonRpcProvider);
+        });
+
+        it("should return the correct network", async () => {
+            const network = await web3Instance.getNetwork();
+            expect(network).to.exist;
+            expect(network.chainId).to.equal(1);
+        });
+    });
 
   describe("decryptWallet", () => {
     let walletEncrypted: string;
